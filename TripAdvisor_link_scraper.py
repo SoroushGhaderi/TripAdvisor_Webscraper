@@ -14,8 +14,8 @@ def hotel_link_scrapper():
     temp = 30
     full_links = []
     base_url = "https://www.tripadvisor.com"
-    base_url_hotels = 'https://www.tripadvisor.com/Hotels-g187849-Milan_Lombardy-Hotels.html'
-    while counter <= 46:
+    base_url_hotels = 'https://www.tripadvisor.com/Hotels-g274707-Prague_Bohemia-Hotels.html'
+    while counter <= 78:
         if counter == 1:
             response = requests.get (base_url_hotels)
             soup = BeautifulSoup ( response.text , 'html.parser' )
@@ -24,18 +24,18 @@ def hotel_link_scrapper():
             for link in link_of_hotels:
                 full_links.append(base_url + link)
 
-            save_object("milan_hotels.json", full_links, "w")
+            save_object("prague_hotels.json", full_links, "w")
 
             counter += 1
         else:
-            response = requests.get ('https://www.tripadvisor.com/Hotels-g187849-oa{}-Milan_Lombardy-Hotels.html'.format(temp) )
+            response = requests.get ('https://www.tripadvisor.com/Hotels-g274707-oa{}-Prague_Bohemia-Hotels.html'.format(temp) )
             soup = BeautifulSoup ( response.text , 'html.parser' )
             name_of_hotel_with_link = soup.find_all('a' , attrs={'class':'property_title prominent'})
             link_of_hotels = [hotel["href"] for hotel in name_of_hotel_with_link]
             for link in link_of_hotels:
                 full_links.append(base_url + link)
             
-            save_object("milan_hotels.json", full_links, "w")
+            save_object("prague_hotels.json", full_links, "w")
 
             counter += 1
             temp = temp + 30
